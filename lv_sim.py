@@ -86,14 +86,16 @@ class LV_SIM:
 
     def run_sim(self, max_time=300, max_steps=10000, seed=0, plot=False):
         random.seed(0)
-        sim = run_simulation(
-            self.lv_cpn,
-            max_steps=max_steps,
-            max_time=max_time,
-            rng=random.random,
-        )
+        sim = run_simulation(self.lv_cpn, max_steps=max_steps, max_time=max_time)
 
         if plot:
-            plt.plot(sim["time"], sim["Predator"])
-            plt.plot(sim["time"], sim["Prey"])
+            plt.plot(sim["time"], sim["Predator"], label="Predator")
+            plt.plot(sim["time"], sim["Prey"], label="Prey")
+            plt.legend()
         return sim, ("Predator", "Prey"), "time"
+
+
+scpn = LV_SIM()
+
+sim = scpn.run_sim(plot=True)
+plt.show()
